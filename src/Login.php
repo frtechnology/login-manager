@@ -42,7 +42,6 @@
             $this->location = $location;
             $this->table = $table;
             $this->camp = $camp;
-            $this->setLogin();
         }
         /**
          * Metodo responsavel por iniciar uma sessao

@@ -15,38 +15,35 @@ To use this library just follow the examples below:
 
 ```php
     <?php
-		require __DIR__.'/vendor/autoload.php';
+    	require __DIR__.'/vendor/autoload.php';
 
-	    use \RafaelRogerio\User\Login;
+	    use \RafaelRogerio\LoginManager\Login;
 
-        //VERIFY SUBMIT BUTTON
-	    if (isset($_POST['submit'])) {
-			/** DATABASE CONFIG
-			 * params $host string
-			 * params $dbname string
-			 * params $user string
-			 * params $pass string
-			 * */		
-		    Login::config('localhost','frcursos','root','');
-            //NOVA INSTACIA DE LOGIN
-		    $obUser = new Login;
-			//SESSION
-			Login::
-			/** SWITCH ON DATABASE CONNECTION
-			 * params $table string
-			 * */
-		    $obUser->connectDb('login');
-            /** SET LOGIN
-			 * params $_POST['email'] string
-			 * params $_POST['password'] string
-			 * params $email string (field where the user's email will be searched)
-			 * params $location string (location where the user will be redirected)
-			 * return string (Error Mesaage)
-			 * */
-		    $status = $obUser->setLogin($_POST['email'], $_POST['senha'],'email', 'http://localhost/FRcursos');
+        //VERIFY IF THE SUBMIT WAS PRECEDED
+	    if (isset($_POST['submit'])) {	
+        	/**
+        	 * DATABASE CONFIG
+        	 * @param string $host
+         	 * @param string $dbname
+         	 * @param string $user
+        	 * @param string $pass
+        	*/
+		    Login::databaseConfig('localhost','frcursos','root','');
+
+        	/**
+        	 * NEW INSTANCE
+        	 * @param string $email
+        	 * @param string $password
+        	 * @param string $table
+        	 * @param string $camp (where will the email be fetched)
+        	 * @param string $location
+        	*/
+		    $obUser = new Login($_POST['email'], $_POST['senha'],'login','email', 'http://google.com');
+            $obUser->setLogin();
+		    $status = $obUser->getMessage();
 		
 	    }
-	
+	?>
 	
 ```
 ```html
@@ -82,28 +79,40 @@ To use this library just follow the examples below:
 
 ```php
 
-		require __DIR__.'/vendor/autoload.php';
+	<?php
+    	require __DIR__.'/vendor/autoload.php';
 
-	    use \RafaelRogerio\User\Login;
+	    use \RafaelRogerio\LoginManager\Login;
 
-        //VERIFY SUBMIT BUTTON
-	    if (isset($_POST['submit'])) {
-            //DATABASE CREDENTIALS		
-		    Login::config('localhost','frcursos','root','');
-            //INSTANCE
-		    $obUser = new Login;
-			//SESSION
-			$obUser->setTypeSession([
-				'id',
-				'email'
-			])
-            //DATABASE CONNECT
-		    $obUser->connectDb('login');
-            
-		    $status = $obUser->setLogin($_POST['email'], $_POST['senha'],'email', 'http://localhost/FRcursos');
+        //VERIFY IF THE SUBMIT WAS PRECEDED
+	    if (isset($_POST['submit'])) {	
+        	/**
+        	 * DATABASE CONFIG
+        	 * @param string $host
+         	 * @param string $dbname
+         	 * @param string $user
+        	 * @param string $pass
+        	*/
+		    Login::databaseConfig('localhost','frcursos','root','');
+
+        	/**
+        	 * NEW INSTANCE
+        	 * @param string $email
+        	 * @param string $password
+        	 * @param string $table
+        	 * @param string $camp (where will the email be fetched)
+        	 * @param string $location
+        	*/
+		    $obUser = new Login($_POST['email'], $_POST['senha'],'login','email', 'http://google.com');
+            $obUser->setTypeSession([
+                'id',
+                'email'
+            ]);
+            $obUser->setLogin();
+		    $status = $obUser->getMessage();
 		
 	    }
-	
+	?>
 	
 ```
 ## NOTE:
